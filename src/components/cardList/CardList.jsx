@@ -35,6 +35,20 @@ const dummyPosts = [
     img: "/p1.jpeg",
     createdAt: "2025-06-05",
   },
+  {
+    _id: "3",
+    title: "Exploring the Future of Web Development",
+    desc: "Web development is evolving rapidly. In this post, we look at upcoming trends and tools shaping the future.",
+    img: "/p1.jpeg",
+    createdAt: "2025-06-07",
+  },
+  {
+    _id: "4",
+    title: "How to Maintain a Minimalist Lifestyle",
+    desc: "Learn the core principles of minimalism and how simplifying your life can bring peace and focus.",
+    img: "/p1.jpeg",
+    createdAt: "2025-06-05",
+  },
 ];
 
 const CardList = async ({ page, cat }) => {
