@@ -8,8 +8,9 @@ import Footer from "@/components/footer/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Blog App",
-  description: "The best blog app!",
+  title: "theScribbly | Where Stories Take Shape",
+  description:
+    "Discover inspiring stories, thoughtful ideas, and personal insights from real voices on theScribbly — your creative blogging space.",
 };
 
 export default function RootLayout({ children }) {
