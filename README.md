@@ -1,12 +1,5 @@
 # The Scribbly
 
-![Next.js](public/next.svg)
-![Prisma](public/prisma.svg)
-![MongoDB](public/mongodb.svg)
-![Cloudinary](public/cloudinary.svg)
-![NextAuth.js](public/nextauth.svg)
-![React](public/reactjs.svg)
-![ESLint](public/eslint.svg)
 
 **The Scribbly** is a full-featured **blogging web application** built with [Next.js](https://nextjs.org/). It allows users to publish, explore, and manage creative blog content. It supports dynamic content rendering, markdown-rich text editing, and image hosting with [Cloudinary](https://cloudinary.com/). The backend uses [Prisma ORM](https://www.prisma.io/) for robust and type-safe database interaction.
 
