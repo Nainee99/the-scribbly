@@ -5,49 +5,38 @@ import styles from "./comments.module.css";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
+import useSWR from "swr";
 
-// Dummy data for UI testing
-const dummyComments = [
-  {
-    _id: "1",
-    desc: "This post was super helpful! Thanks for sharing.",
-    createdAt: "2025-06-05",
-    user: {
-      name: "Alice Johnson",
-      image: "/avatar1.jpg",
-    },
-  },
-  {
-    _id: "2",
-    desc: "Great insights. Looking forward to more posts like this!",
-    createdAt: "2025-06-06",
-    user: {
-      name: "Mark Smith",
-      image: "/avatar2.jpg",
-    },
-  },
-];
+const fetcher = async (url) => {
+  const res = await fetch(url);
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    const error = new Error(data.message);
+    throw error;
+  }
+
+  return data;
+};
 
 const Comments = ({ postSlug }) => {
   const { status } = useSession();
   const [desc, setDesc] = useState("");
 
-  // const { data, mutate, isLoading } = useSWR(
-  //   `http://localhost:3000/api/comments?postSlug=${postSlug}`,
-  //   fetcher
-  // );
+  const host_url = process.env.NEXT_PUBLIC_HOST_URL || "http://localhost:3000";
 
-  // const handleSubmit = async () => {
-  //   await fetch("/api/comments", {
-  //     method: "POST",
-  //     body: JSON.stringify({ desc, postSlug }),
-  //   });
-  //   mutate();
-  // };
+  const { data, mutate, isLoading } = useSWR(
+    `${host_url}/api/comments?postSlug=${postSlug}`,
+    fetcher
+  );
 
-  const handleSubmit = () => {
-    alert("Comment submitted (mocked).");
-    setDesc("");
+  const handleSubmit = async () => {
+    await fetch("/api/comments", {
+      method: "POST",
+      body: JSON.stringify({ desc, postSlug }),
+    });
+    mutate();
   };
 
   return (
@@ -71,33 +60,35 @@ const Comments = ({ postSlug }) => {
       )}
 
       <div className={styles.comments}>
-        {/* Replace `data` with `dummyComments` */}
-        {dummyComments.map((item) => (
-          <div className={styles.comment} key={item._id}>
-            <div className={styles.user}>
-              {item.user.image && (
-                <Image
-                  src={item.user.image}
-                  alt={item.user.name}
-                  width={50}
-                  height={50}
-                  className={styles.image}
-                />
-              )}
-              <div className={styles.userInfo}>
-                <span className={styles.username}>{item.user.name}</span>
-                <span className={styles.date}>{item.createdAt}</span>
+        {data && data.length > 0 ? (
+          data.map((item) => (
+            <div className={styles.comment} key={item._id}>
+              <div className={styles.user}>
+                {item.user.image && (
+                  <Image
+                    src={item.user.image}
+                    alt={item.user.name}
+                    width={50}
+                    height={50}
+                    className={styles.image}
+                  />
+                )}
+                <div className={styles.userInfo}>
+                  <span className={styles.username}>{item.user.name}</span>
+                  <span className={styles.date}>{item.createdAt}</span>
+                </div>
               </div>
+              <p className={styles.desc}>{item.desc}</p>
             </div>
-            <p className={styles.desc}>{item.desc}</p>
-          </div>
-        ))}
+          ))
+        ) : isLoading ? (
+          <p>Loading comments...</p>
+        ) : (
+          <p>No comments yet.</p>
+        )}
       </div>
     </div>
   );
 };
 
 export default Comments;
-// Note: The above code uses dummy data for UI testing purposes.
-// In a real application, you would replace `dummyComments` with the data fetched from your API.
-// The `handleSubmit` function is also mocked to show an alert instead of making a real API call.

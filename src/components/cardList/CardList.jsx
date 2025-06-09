@@ -18,44 +18,10 @@ const getData = async (page, cat) => {
   return res.json();
 };
 
-// Dummy data for testing UI
-// const dummyPosts = [
-//   {
-//     _id: "1",
-//     title: "Exploring the Future of Web Development",
-//     desc: "Web development is evolving rapidly. In this post, we look at upcoming trends and tools shaping the future.",
-//     img: "/p1.jpeg",
-//     createdAt: "2025-06-07",
-//   },
-//   {
-//     _id: "2",
-//     title: "How to Maintain a Minimalist Lifestyle",
-//     desc: "Learn the core principles of minimalism and how simplifying your life can bring peace and focus.",
-//     img: "/p1.jpeg",
-//     createdAt: "2025-06-05",
-//   },
-//   {
-//     _id: "3",
-//     title: "Exploring the Future of Web Development",
-//     desc: "Web development is evolving rapidly. In this post, we look at upcoming trends and tools shaping the future.",
-//     img: "/p1.jpeg",
-//     createdAt: "2025-06-07",
-//   },
-//   {
-//     _id: "4",
-//     title: "How to Maintain a Minimalist Lifestyle",
-//     desc: "Learn the core principles of minimalism and how simplifying your life can bring peace and focus.",
-//     img: "/p1.jpeg",
-//     createdAt: "2025-06-05",
-//   },
-// ];
-
 const CardList = async ({ page, cat }) => {
   const { posts, count } = await getData(page, cat);
-  // const posts = dummyPosts;
-  // const count = dummyPosts.length;
 
-  const POST_PER_PAGE = 2;
+  const POST_PER_PAGE = 5;
 
   const hasPrev = POST_PER_PAGE * (page - 1) > 0;
   const hasNext = POST_PER_PAGE * (page - 1) + POST_PER_PAGE < count;
