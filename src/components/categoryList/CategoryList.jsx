@@ -3,60 +3,45 @@ import styles from "./categoryList.module.css";
 import Link from "next/link";
 import Image from "next/image";
 
-// TODO: Uncomment the following function to fetch real data from the API
-// const getData = async () => {
-//   const res = await fetch("http://localhost:3000/api/categories", {
-//     cache: "no-store",
-//   });
+// Generates a very light pastel HSL color based on slug
+function getCategoryColor(slug) {
+  let hash = 0;
+  for (let i = 0; i < slug.length; i++) {
+    hash = slug.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const hue = Math.abs(hash) % 360;
+  return `hsl(${hue}, 70%, 92%)`; // lighter pastel
+}
 
-//   if (!res.ok) {
-//     throw new Error("Failed");
-//   }
+// Fetch categories from API
+const getData = async () => {
+  const res = await fetch("http://localhost:3000/api/categories", {
+    cache: "no-store",
+  });
 
-//   return res.json();
-// };
+  if (!res.ok) {
+    throw new Error("Failed to fetch categories");
+  }
 
-// Dummy data to preview UI
-const dummyData = [
-  {
-    _id: "1",
-    title: "Coding",
-    slug: "coding",
-    img: "/coding.png",
-  },
-  {
-    _id: "2",
-    title: "Culture",
-    slug: "culture",
-    img: "/culture.png",
-  },
-  {
-    _id: "3",
-    title: "Travel",
-    slug: "travel",
-    img: "/travel.png",
-  },
-  {
-    _id: "4",
-    title: "Food",
-    slug: "food",
-    img: "/food.png",
-  },
-];
+  return res.json();
+};
 
 const CategoryList = async () => {
-  // const data = await getData();
-  const data = dummyData;
+  const data = await getData();
 
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Popular Categories</h1>
       <div className={styles.categories}>
-        {data?.map((item) => (
+        {data?.slice(0, 6).map((item) => (
           <Link
             href={`/blog?cat=${item.slug}`}
-            className={`${styles.category} ${styles[item.slug]}`}
-            key={item._id}
+            className={styles.category}
+            key={item.id || item._id}
+            style={{
+              background: getCategoryColor(item.slug),
+              color: "#000", // Ensures text is black
+            }}
           >
             {item.img && (
               <Image
