@@ -2,20 +2,11 @@ import React from "react";
 import styles from "./categoryList.module.css";
 import Link from "next/link";
 import Image from "next/image";
-
-// Generates a very light pastel HSL color based on slug
-function getCategoryColor(slug) {
-  let hash = 0;
-  for (let i = 0; i < slug.length; i++) {
-    hash = slug.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  const hue = Math.abs(hash) % 360;
-  return `hsl(${hue}, 70%, 92%)`; // lighter pastel
-}
+import { getCategoryColor } from "@/utils/categoryColor";
 
 // Fetch categories from API
 const getData = async () => {
-  const res = await fetch("http://localhost:3000/api/categories", {
+  const res = await fetch(process.env.NEXT_PUBLIC_CATEGORIES_API_URL, {
     cache: "no-store",
   });
 
