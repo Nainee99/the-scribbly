@@ -4,6 +4,8 @@ import { Inter } from "next/font/google";
 import ThemeProvider from "@/providers/ThemeProvider";
 import AuthProvider from "@/providers/AuthProvider";
 import LayoutWrapper from "@/components/custom/LayoutWrapper";
+import { CategoryProvider } from "@/context/CategoryContext";
+import { PostProvider } from "@/context/PostContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +22,11 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <ThemeContextProvider>
             <ThemeProvider>
-              <LayoutWrapper>{children}</LayoutWrapper>
+              <CategoryProvider>
+                <PostProvider>
+                  <LayoutWrapper>{children}</LayoutWrapper>
+                </PostProvider>
+              </CategoryProvider>
             </ThemeProvider>
           </ThemeContextProvider>
         </AuthProvider>
