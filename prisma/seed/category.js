@@ -1,4 +1,4 @@
-const { PrismaClient } = require("../src/generated/prisma");
+const { PrismaClient } = require("../../src/generated/prisma");
 const { faker } = require("@faker-js/faker");
 
 const prisma = new PrismaClient();
@@ -17,31 +17,56 @@ const newCategories = [
   "Art",
   "Business",
   "Music",
+  "Politics",
+  "Startups",
+  "Parenting",
+  "Productivity",
+  "Fitness",
+  "History",
+  "Gaming",
+  "Books",
+  "AI & Machine Learning",
+  "Mental Health",
+  "DIY",
+  "Environment",
+  "Spirituality",
+  "Culture",
+  "Photography",
+  "Design",
+  "Programming",
 ];
 
 async function main() {
-  for (const [index, title] of newCategories.entries()) {
-    const slug = faker.helpers.slugify(title.toLowerCase());
-    const existing = await prisma.category.findUnique({ where: { slug } });
+  let created = 0;
+  let skipped = 0;
 
-    if (!existing) {
+  for (const title of newCategories) {
+    const slug = faker.helpers.slugify(title.toLowerCase());
+    const exists = await prisma.category.findUnique({ where: { slug } });
+
+    if (!exists) {
       await prisma.category.create({
         data: {
           slug,
           title,
-          img: `https://picsum.photos/seed/newcat-${index}/600/400`,
+          img: `https://picsum.photos/seed/${slug}/600/400`,
         },
       });
-      console.log(`Category ${title} created`);
+      console.log(`✅ Created category: ${title}`);
+      created++;
     } else {
-      console.log(`Category ${title} already exists`);
+      console.log(`⚠️ Category already exists: ${title}`);
+      skipped++;
     }
   }
+
+  console.log("\n✅ Seeding complete!");
+  console.log(`🆕 Created: ${created} | ⏭ Skipped: ${skipped}`);
 }
 
 main()
   .catch((e) => {
-    console.error(e);
+    console.error("❌ Error seeding categories:", e);
     process.exit(1);
   })
   .finally(async () => {
