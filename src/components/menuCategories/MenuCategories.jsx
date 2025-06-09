@@ -1,33 +1,21 @@
 "use client";
 
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./menuCategories.module.css";
 import { getCategoryColor } from "@/utils/categoryColor";
+import { useCategory } from "@/context/CategoryContext";
 
 const MenuCategories = () => {
-  const [categories, setCategories] = useState([]);
+  const categories = useCategory();
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const res = await fetch(process.env.NEXT_PUBLIC_CATEGORIES_API_URL);
-        const data = await res.json();
-        setCategories(data);
-      } catch (err) {
-        console.error("Failed to fetch categories:", err);
-      }
-    };
-    fetchCategories();
-  }, []);
-
-  console.log("categories", categories);
+  if (!categories) return <div>Loading...</div>;
 
   return (
     <div className={styles.categoryList}>
       {categories.map((cat) => (
         <Link
-          key={cat.id}
+          key={cat.id || cat._id}
           href={`/blog?cat=${cat.slug || cat.title.toLowerCase()}`}
           className={styles.categoryItem}
           style={{

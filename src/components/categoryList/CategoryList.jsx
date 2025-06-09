@@ -1,37 +1,28 @@
+"use client";
 import React from "react";
 import styles from "./categoryList.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import { getCategoryColor } from "@/utils/categoryColor";
+import { useCategory } from "@/context/CategoryContext";
 
-// Fetch categories from API
-const getData = async () => {
-  const res = await fetch(process.env.NEXT_PUBLIC_CATEGORIES_API_URL, {
-    cache: "no-store",
-  });
+const CategoryList = () => {
+  const categories = useCategory();
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch categories");
-  }
-
-  return res.json();
-};
-
-const CategoryList = async () => {
-  const data = await getData();
+  if (!categories) return <div>Loading...</div>;
 
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Popular Categories</h1>
       <div className={styles.categories}>
-        {data?.slice(0, 6).map((item) => (
+        {categories.slice(0, 6).map((item) => (
           <Link
             href={`/blog?cat=${item.slug}`}
             className={styles.category}
             key={item.id || item._id}
             style={{
               background: getCategoryColor(item.slug),
-              color: "#000", // Ensures text is black
+              color: "#000",
             }}
           >
             {item.img && (

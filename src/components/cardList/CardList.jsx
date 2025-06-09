@@ -1,30 +1,23 @@
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
 import styles from "./cardList.module.css";
 import Pagination from "../pagination/Pagination";
 import Card from "../card/Card";
+import { usePost } from "@/context/PostContext";
 
-const getData = async (page, cat) => {
-  const res = await fetch(
-    `http://localhost:3000/api/posts?page=${page}&cat=${cat || ""}`,
-    {
-      cache: "no-store",
-    }
-  );
+const POST_PER_PAGE = 5;
 
-  if (!res.ok) {
-    throw new Error("Failed");
-  }
+const CardList = ({ page, cat }) => {
+  const { posts, count, fetchPosts, loading } = usePost();
 
-  return res.json();
-};
-
-const CardList = async ({ page, cat }) => {
-  const { posts, count } = await getData(page, cat);
-
-  const POST_PER_PAGE = 5;
+  useEffect(() => {
+    fetchPosts(page, cat);
+  }, [page, cat]);
 
   const hasPrev = POST_PER_PAGE * (page - 1) > 0;
   const hasNext = POST_PER_PAGE * (page - 1) + POST_PER_PAGE < count;
+
+  if (loading) return <div>Loading...</div>;
 
   return (
     <div className={styles.container}>
