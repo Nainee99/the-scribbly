@@ -1,4 +1,5 @@
-"use client";
+export const dynamic = "force-dynamic"; 
+("use client");
 
 import React, { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
@@ -26,6 +27,8 @@ const WritePage = () => {
 
   useEffect(() => {
     fetchCategories();
+    // Safe to use document here
+    document.title = "Write";
   }, []);
 
   const fetchCategories = async () => {
