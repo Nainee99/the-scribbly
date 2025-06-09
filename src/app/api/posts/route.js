@@ -8,7 +8,7 @@ export const GET = async (req) => {
   const page = searchParams.get("page");
   const cat = searchParams.get("cat");
 
-  const POST_PER_PAGE = 2;
+  const POST_PER_PAGE = 5;
 
   const query = {
     take: POST_PER_PAGE,
@@ -56,8 +56,6 @@ export const POST = async (req) => {
     );
   }
 };
-
-
 
 // GET RANDOM POSTS
 export const GET_RANDOM = async (req) => {
