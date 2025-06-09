@@ -19,8 +19,8 @@ const Featured = () => {
           <p className={styles.postDesc}>
             theScribbly is where words matter. Dive into personal essays,
             creative pieces, and thoughtful commentary from a growing community
-            of curious minds. Whether you're here to write or just to read,
-            you've found your corner of the internet.
+            of curious minds. Whether you&apos;re here to write or just to read,
+            you&apos;ve found your corner of the internet.
           </p>
           <button className={styles.button}>Read More</button>
         </div>

@@ -12,7 +12,7 @@ const CardList = ({ page, cat }) => {
 
   useEffect(() => {
     fetchPosts(page, cat);
-  }, [page, cat]);
+  }, [page, cat, fetchPosts]);
 
   const hasPrev = POST_PER_PAGE * (page - 1) > 0;
   const hasNext = POST_PER_PAGE * (page - 1) + POST_PER_PAGE < count;

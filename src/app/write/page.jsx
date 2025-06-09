@@ -7,6 +7,7 @@ import { Plus, ImageIcon, Link, Video, X, Loader2 } from "lucide-react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.bubble.css";
 import styles from "./writePage.module.css";
+import Image from "next/image";
 
 const WritePage = () => {
   const { status } = useSession();
@@ -232,7 +233,7 @@ const WritePage = () => {
           {(mediaPreview || media) && (
             <div className={styles["image-preview"]}>
               <div className={styles["preview-container"]}>
-                <img
+                <Image
                   src={mediaPreview || media}
                   alt="Preview"
                   className={styles["preview-image"]}

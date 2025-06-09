@@ -75,7 +75,7 @@ export default function ContactPage() {
           <div className={styles.heroText}>
             <h1 className={styles.heroTitle}>Get in Touch</h1>
             <p className={styles.heroSubtitle}>
-              Have questions, feedback, or just want to say hello? We'd love to
+              Have questions, feedback, or just want to say hello? We&apos;d love to
               hear from you. Our team is always ready to connect with our
               readers and community.
             </p>
@@ -99,7 +99,7 @@ export default function ContactPage() {
           <div className={styles.formContainer}>
             <h2>Send Us a Message</h2>
             <p className={styles.formDescription}>
-              Fill out the form below and we'll get back to you as soon as
+              Fill out the form below and we&apos;ll get back to you as soon as
               possible.
             </p>
 
@@ -108,7 +108,7 @@ export default function ContactPage() {
                 <CheckCircle size={48} className={styles.successIcon} />
                 <h3>Message Sent!</h3>
                 <p>
-                  Thank you for reaching out. We'll respond to your inquiry
+                  Thank you for reaching out. We&apos;ll respond to your inquiry
                   shortly.
                 </p>
                 <button
