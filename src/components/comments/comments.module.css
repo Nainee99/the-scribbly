@@ -15,12 +15,12 @@
 }
 
 .input {
-  padding: 20px;
+  padding: 10px;
   width: 100%;
 }
 
 .button {
-  padding: 16px 20px;
+  padding: 20px 20px;
   background-color: teal;
   color: white;
   font-weight: bold;

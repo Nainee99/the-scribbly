@@ -7,8 +7,7 @@ import { signOut, useSession } from "next-auth/react";
 const AuthLinks = () => {
   const [open, setOpen] = useState(false);
 
-  const status = "unauthenticated";
-//   const { status } = useSession();
+  const { status } = useSession();
 
   return (
     <>
@@ -36,7 +35,7 @@ const AuthLinks = () => {
           <Link href="/">Homepage</Link>
           <Link href="/">About</Link>
           <Link href="/">Contact</Link>
-          {status === "notauthenticated" ? (
+          {status === "unauthenticated" ? (
             <Link href="/login">Login</Link>
           ) : (
             <>

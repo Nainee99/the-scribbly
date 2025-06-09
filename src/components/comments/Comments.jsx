@@ -29,8 +29,7 @@ const dummyComments = [
 ];
 
 const Comments = ({ postSlug }) => {
-  const status = "";
-  // const { status } = useSession();
+  const { status } = useSession();
   const [desc, setDesc] = useState("");
 
   // const { data, mutate, isLoading } = useSWR(

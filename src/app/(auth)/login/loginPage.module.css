@@ -1,0 +1,93 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: var(--bg);
+  padding: 20px;
+}
+
+.card {
+  background: var(--softBg);
+  padding: 48px 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  max-width: 400px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  text-align: center;
+}
+
+.title {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--textColor);
+}
+
+.subtitle {
+  font-size: 14px;
+  color: var(--textSecondary);
+  margin-top: -12px;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: white;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  opacity: 0.95;
+}
+
+.google {
+  background: transparent;
+  color: #db4437;
+  border: 2px solid #db4437;
+}
+
+.github {
+  background: transparent;
+  color: #24292e;
+  border: 2px solid #24292e;
+}   
+
+.facebook {
+  background: transparent;
+  color: #1877f2;
+  border: 2px solid #1877f2;
+}
+
+.loading {
+  font-size: 18px;
+  text-align: center;
+  padding-top: 100px;
+  color: var(--textColor);
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 36px 24px;
+  }
+
+  .btn {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+}
