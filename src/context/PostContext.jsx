@@ -55,9 +55,7 @@ export const PostProvider = ({ children }) => {
       }
 
       try {
-        const url = `http://localhost:3000/api/posts?page=${page}&cat=${
-          cat || ""
-        }`;
+        const url = `/api/posts?page=${page}&cat=${cat || ""}`;
         const res = await fetchWithRetry(
           url,
           { cache: "no-store" },
