@@ -27,7 +27,7 @@ export const CategoryProvider = ({ children }) => {
       localStorage.removeItem(CATEGORY_CACHE_TIME_KEY);
 
       // Fetch from API if not in localStorage or cache expired
-      fetch(process.env.NEXT_PUBLIC_CATEGORIES_API_URL)
+      fetch("/api/categories")
         .then((res) => res.json())
         .then((data) => {
           setCategories(data);

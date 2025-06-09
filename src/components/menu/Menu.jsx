@@ -12,10 +12,10 @@ const Menu = () => {
   const host_url = process.env.NEXT_PUBLIC_HOST_URL || "http://localhost:3000";
 
   useEffect(() => {
-    fetch(`${host_url}/api/posts/random?count=4`)
+    fetch(`/api/posts/random?count=4`)
       .then((res) => res.json())
       .then((data) => setPopularPosts(data));
-    fetch(`${host_url}/api/posts/random?count=5`)
+    fetch(`/api/posts/random?count=5`)
       .then((res) => res.json())
       .then((data) => setEditorPosts(data));
   }, []);

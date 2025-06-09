@@ -24,10 +24,8 @@ const Comments = ({ postSlug }) => {
   const { status } = useSession();
   const [desc, setDesc] = useState("");
 
-  const host_url = process.env.NEXT_PUBLIC_HOST_URL || "http://localhost:3000";
-
   const { data, mutate, isLoading } = useSWR(
-    `${host_url}/api/comments?postSlug=${postSlug}`,
+    `/api/comments?postSlug=${postSlug}`,
     fetcher
   );
 
