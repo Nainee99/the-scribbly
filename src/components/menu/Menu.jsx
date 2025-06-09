@@ -9,8 +9,6 @@ const Menu = () => {
   const [popularPosts, setPopularPosts] = useState([]);
   const [editorPosts, setEditorPosts] = useState([]);
 
-  const host_url = process.env.NEXT_PUBLIC_HOST_URL || "http://localhost:3000";
-
   useEffect(() => {
     fetch(`/api/posts/random?count=4`)
       .then((res) => res.json())
@@ -19,9 +17,6 @@ const Menu = () => {
       .then((res) => res.json())
       .then((data) => setEditorPosts(data));
   }, []);
-
-  console.log("Popular Posts:", popularPosts);
-  console.log("Editor Posts:", editorPosts);
 
   return (
     <div className={styles.container}>
