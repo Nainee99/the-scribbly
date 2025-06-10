@@ -16,7 +16,11 @@ const getData = async (slug) => {
     const res = await fetch(`${baseUrl}/api/posts/${slug}`, {
       cache: "no-store",
     });
-    if (!res.ok) throw new Error("Failed to fetch post");
+    if (res.status !== 200) {
+      const text = await res.text();
+      console.error("API error:", res.status, text);
+      throw new Error("Failed to fetch post");
+    }
     return res.json();
   } catch (err) {
     console.error("Error fetching post data:", err);
