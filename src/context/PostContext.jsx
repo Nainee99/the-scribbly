@@ -1,5 +1,5 @@
 "use client";
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useCallback } from "react";
 
 const PostContext = createContext();
 
@@ -28,7 +28,7 @@ export const PostProvider = ({ children }) => {
   const [postsData, setPostsData] = useState({ posts: [], count: 0 });
   const [loading, setLoading] = useState(false);
 
-  const fetchPosts = async (page, cat) => {
+  const fetchPosts = useCallback(async (page, cat) => {
     setLoading(true);
 
     if (typeof window !== "undefined") {
@@ -56,12 +56,7 @@ export const PostProvider = ({ children }) => {
 
       try {
         const url = `/api/posts?page=${page}&cat=${cat || ""}`;
-        const res = await fetchWithRetry(
-          url,
-          { cache: "no-store" },
-          3, // number of retries
-          1000 // delay between retries in ms
-        );
+        const res = await fetchWithRetry(url, { cache: "no-store" }, 3, 1000);
         const data = await res.json();
         setPostsData(data);
 
@@ -75,7 +70,7 @@ export const PostProvider = ({ children }) => {
       }
       setLoading(false);
     }
-  };
+  }, []);
 
   return (
     <PostContext.Provider value={{ ...postsData, fetchPosts, loading }}>

@@ -7,9 +7,7 @@ import Image from "next/image";
 
 const LoginPage = () => {
   const { data, status } = useSession();
-  console.log("Session Data:", data);
-  console.log("Session Status:", status);
-  // const status = "unauthenticated"; // Simulating unauthenticated state for this example
+ 
   const router = useRouter();
 
   if (status === "loading")

@@ -5,10 +5,21 @@ import Comments from "@/components/comments/Comments";
 
 const getData = async (slug) => {
   try {
-    const res = await fetch(`/api/posts/${slug}`, { cache: "no-store" });
+    let baseUrl;
+    if (process.env.VERCEL_URL) {
+      baseUrl = `https://${process.env.VERCEL_URL}`;
+    } else if (process.env.NEXT_PUBLIC_HOST_URL) {
+      baseUrl = `https://${process.env.NEXT_PUBLIC_HOST_URL}`;
+    } else {
+      baseUrl = "http://localhost:3000";
+    }
+    const res = await fetch(`${baseUrl}/api/posts/${slug}`, {
+      cache: "no-store",
+    });
     if (!res.ok) throw new Error("Failed to fetch post");
     return res.json();
   } catch (err) {
+    console.error("Error fetching post data:", err);
     return null;
   }
 };
